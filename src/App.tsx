@@ -12,7 +12,7 @@ const App: FC = () => (
         <ApolloProviderWithClient>
             <ThemeProvider theme={theme}>
                 <GlobalStyles styles={globalStyles()}/>
-                <BrowserRouter>
+                <BrowserRouter basename={'entrypoint/'}>
                     <AlexToastProvider>
                         <LoginShell/>
                     </AlexToastProvider>
