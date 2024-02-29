@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { getTokensAndExpiry } from './authTokenAndExpiry.ts'
-import { RootState } from '../../core/redux/store/store.ts'
+import { useReactiveVar } from '@apollo/client'
+import { userLogged } from '../core/apollo/vars.ts'
 
 export const useLoginStatus = () => {
     const checkStatus = useCallback(() => {
@@ -18,11 +18,12 @@ export const useLoginStatus = () => {
     }, [localStorage])
 
     const [loginStatus, setLoginStatus] = useState<boolean>(checkStatus())
-    const user = useSelector((state: RootState) => state.user)
+
+    const userLoggedVar = useReactiveVar(userLogged)
 
     useEffect(() => {
         setLoginStatus(checkStatus())
-    }, [user.isAuth])
+    }, [userLoggedVar])
 
     return loginStatus
 }

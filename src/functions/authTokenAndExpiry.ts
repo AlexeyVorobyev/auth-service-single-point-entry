@@ -1,4 +1,5 @@
-import { TRefreshResponse, TSignInResponse } from '../../core/redux/api/types/auth'
+import { TTokenDataAttributes } from '../types/graphql/graphql.ts'
+
 
 interface IGetTokensAndExpiryReturnValue {
 	refreshToken: string | null,
@@ -16,7 +17,7 @@ export const getTokensAndExpiry = (): IGetTokensAndExpiryReturnValue => {
 	}
 }
 
-export const setTokenAndExpiry = (tokens: TSignInResponse | TRefreshResponse) => {
+export const setTokenAndExpiry = (tokens: TTokenDataAttributes) => {
 	localStorage.setItem('accessToken', tokens.accessToken)
 	localStorage.setItem('refreshToken', tokens.refreshToken)
 	localStorage.setItem('accessExpiry', tokens.accessTokenTTL.toString())

@@ -1,4 +1,4 @@
-import {createTheme} from "@mui/material";
+import { createTheme } from '@mui/material'
 
 // Augment the palette to include an ochre color
 declare module '@mui/material/styles' {
@@ -45,21 +45,21 @@ export const theme = createTheme({
             light: '#9e9e9e',
             dark: '#616161',
             contrastText: '#FFFFFF',
-            notContrastText: '#616161'
-        }
+            notContrastText: '#616161',
+        },
     },
 })
 
 export const globalStyles = () => ({
-    "&::-webkit-scrollbar": {
+    '&::-webkit-scrollbar': {
         width: 5,
-        height: 5
+        height: 5,
     },
-    "&::-webkit-scrollbar-track": {
-        backgroundColor: null
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: null,
     },
-    "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "#b2b2b2",
-        borderRadius: 2
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#b2b2b2',
+        borderRadius: 2,
     },
-});
+})

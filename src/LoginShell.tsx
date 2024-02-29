@@ -1,20 +1,18 @@
 import React, { FC } from 'react'
-import { useLoginStatus } from './components/functions/useLoginStatus.tsx'
-import { SkeletonWrapper } from './components/skeleton/SkeletonWrapper.tsx'
-import { routesList } from './components/router/routesList.tsx'
-import { routesAuthList } from './components/router/routesAuthList.tsx'
 import { AlexRouter } from './shared-react-components/AlexRouter/AlexRouter.tsx'
+import { routesList } from './components/router/routesList.tsx'
+import { useLoginStatus } from './functions/useLoginStatus.tsx'
+
 
 export const LoginShell: FC = () => {
-    const loginStatus = true
+    const loginStatus = useLoginStatus()
 
     return (<>
-        {loginStatus ? (
-            <SkeletonWrapper>
-                <AlexRouter routesList={routesList}/>
-            </SkeletonWrapper>
-        ) : (
-            <AlexRouter routesList={routesAuthList}/>
-        )}
+        {/*{loginStatus ? (*/}
+        {/*    null*/}
+        {/*) : (*/}
+        {/*    <AlexRouter routesList={routesList}/>*/}
+        {/*)}*/}
+        <AlexRouter routesList={routesList}/>
     </>)
 }
