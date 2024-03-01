@@ -105,7 +105,9 @@ export const RegistrationPage: FC = () => {
                             </Divider>
                             <Stack justifyContent={'center'}>
                                 <Typography variant={'subtitle1'} textAlign={'center'}>
-                                    Есть аккаунт? <AlexLink to={'/'} sx={{
+                                    Есть аккаунт? <AlexLink
+                                    saveSearchParams
+                                    to={'/'} sx={{
                                     textDecoration: 'none',
                                     color: theme.palette.primary.main,
                                 }}>Авторизуйтесь</AlexLink></Typography>

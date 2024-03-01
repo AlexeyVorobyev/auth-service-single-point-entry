@@ -74,7 +74,9 @@ export const AuthPage: FC = () => {
                             </Divider>
                             <Stack justifyContent={'center'}>
                                 <Typography variant={'subtitle1'} textAlign={'center'}>
-                                    Нет аккаунта? <AlexLink to={'../registration'} sx={{
+                                    Нет аккаунта? <AlexLink
+                                    saveSearchParams
+                                    to={'../registration'} sx={{
                                     textDecoration: 'none',
                                     color: theme.palette.primary.main,
                                 }}>Зарегестрируйтесь</AlexLink></Typography>
