@@ -46,7 +46,7 @@ export const RegistrationPage: FC = () => {
                 }
                 if (response.data?.auth.signUp) {
                     const tokenData = response.data?.auth.signUp
-                    const redirectUrl = new URL(searchParams.get(EUrlAuthSearchParams.redirectUrl)!)
+                    const redirectUrl = new URL(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.accessToken, tokenData?.accessToken)
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshToken, tokenData?.refreshToken)
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.accessTokenTtl, tokenData?.accessTokenTTL)

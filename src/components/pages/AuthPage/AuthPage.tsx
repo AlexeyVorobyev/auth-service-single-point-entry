@@ -33,11 +33,13 @@ export const AuthPage: FC = () => {
                 }
                 if (response.data?.auth.signIn) {
                     const tokenData = response.data?.auth.signIn
-                    const redirectUrl = new URL(searchParams.get(EUrlAuthSearchParams.redirectUrl)!)
+                    console.log(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
+                    const redirectUrl = new URL(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.accessToken, tokenData?.accessToken)
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshToken, tokenData?.refreshToken)
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.accessTokenTtl, tokenData?.accessTokenTTL)
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshTokenTtl, tokenData?.refreshTokenTTL)
+                    console.log(redirectUrl)
                     window.location.replace(redirectUrl)
                 }
             })
