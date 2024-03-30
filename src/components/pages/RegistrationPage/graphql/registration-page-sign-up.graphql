@@ -1,6 +1,6 @@
 mutation RegistrationPageSignUp($input: TSignUpInput!) {
     auth {
-        signUp(input: $input) {
+        baseSignUp(input: $input) {
             accessToken
             accessTokenTTL
             refreshToken

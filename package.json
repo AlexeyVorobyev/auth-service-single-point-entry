@@ -9,6 +9,7 @@
     "build-no-tsc": "vite build",
     "serve:prod": "serve -s dist",
     "download:schema": "apollo client:download-schema --endpoint=http://10.5.0.5/api/graphql schema.json",
+    "download:schema:gql": "apollo client:download-schema --endpoint=http://10.5.0.5/api/graphql schema.graphql",
     "types": "graphql-codegen --config src/types/codegen.ts"
   },
   "dependencies": {

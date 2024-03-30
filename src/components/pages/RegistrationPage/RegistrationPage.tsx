@@ -1,23 +1,24 @@
-import React, { FC } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
-import { Button, Divider, Grid, Paper, Stack, Typography } from '@mui/material'
+import React, {FC} from 'react'
+import {FormProvider, useForm} from 'react-hook-form'
+import {Button, Divider, Grid, Paper, Stack, Typography} from '@mui/material'
 import {
     AlexInputControlled,
     EInputType,
 } from '../../../shared-react-components/formUtils/AlexInput/AlexInputControlled.tsx'
-import { validEmail, validPassword } from '../../../shared-react-components/formUtils/Regex/regex.ts'
-import { theme } from '../../theme/theme.ts'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { AlexLink } from '../../../shared-react-components/AlexLink/AlexLink.tsx'
+import {validEmail, validPassword} from '../../../shared-react-components/formUtils/Regex/regex.ts'
+import {theme} from '../../theme/theme.ts'
+import {useSearchParams} from 'react-router-dom'
+import {AlexLink} from '../../../shared-react-components/AlexLink/AlexLink.tsx'
 import {
     RegistrationPageSignUpDocument,
-    RegistrationPageSignUpMutation, RegistrationPageSignUpMutationVariables,
+    RegistrationPageSignUpMutation,
+    RegistrationPageSignUpMutationVariables,
     TSignUpInput,
 } from '../../../types/graphql/graphql.ts'
-import { useLazyQuery, useMutation } from '@apollo/client'
-import { EUrlAuthSearchParams } from '../../../common/enum/url-auth-search-params.ts'
-import { toast } from 'react-toastify'
-import { toastSettings } from '../../../shared-react-components/AlexToastProvider/AlexToastProvider.tsx'
+import {useMutation} from '@apollo/client'
+import {EUrlAuthSearchParams} from '../../../common/enum/url-auth-search-params.ts'
+import {toast} from 'react-toastify'
+import {toastSettings} from '../../../shared-react-components/AlexToastProvider/AlexToastProvider.tsx'
 
 
 type TFormData = { passwordCheck: string } & TSignUpInput
@@ -44,8 +45,8 @@ export const RegistrationPage: FC = () => {
                     toast.error('redirectUrl not provided', toastSettings.connectionLost.properties)
                     return
                 }
-                if (response.data?.auth.signUp) {
-                    const tokenData = response.data?.auth.signUp
+                if (response.data?.auth.baseSignUp) {
+                    const tokenData = response.data?.auth.baseSignUp
                     const redirectUrl = new URL(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.accessToken, tokenData?.accessToken)
                     redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshToken, tokenData?.refreshToken)
