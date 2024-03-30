@@ -37,7 +37,10 @@ export const RegistrationPage: FC = () => {
     const onSubmit = (data: TFormData) => {
         mutationSignUp({
             variables: {
-                input: data,
+                input: {
+                    email: data.email,
+                    password: data.password
+                },
             } as RegistrationPageSignUpMutationVariables,
         })
             .then((response) => {
