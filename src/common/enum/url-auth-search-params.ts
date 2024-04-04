@@ -3,5 +3,6 @@ export enum EUrlAuthSearchParams {
     accessToken = 'accessToken',
     refreshToken = 'refreshToken',
     accessTokenTtl = 'accessTokenTtl',
-    refreshTokenTtl = 'refreshTokenTtl'
+    refreshTokenTtl = 'refreshTokenTtl',
+    externalServiceRecognitionKey = 'key'
 }

@@ -291,7 +291,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "TDefaultAttributes",
+                "name": "TTokenDataAttributes",
                 "ofType": null
               }
             },
@@ -475,34 +475,6 @@
           }
         ],
         "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "TDefaultAttributes",
-        "description": null,
-        "specifiedByUrl": null,
-        "fields": [
-          {
-            "name": "operationMeta",
-            "description": "Status metadata",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "TOperationMetaAttributes",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },

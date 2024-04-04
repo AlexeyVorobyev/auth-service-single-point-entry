@@ -10,6 +10,8 @@ import {theme} from '../../theme/theme.ts'
 import {useSearchParams} from 'react-router-dom'
 import {AlexLink} from '../../../shared-react-components/AlexLink/AlexLink.tsx'
 import {
+    RegistrationPageExternalServiceSignUpDocument,
+    RegistrationPageExternalServiceSignUpMutation, RegistrationPageExternalServiceSignUpMutationVariables,
     RegistrationPageSignUpDocument,
     RegistrationPageSignUpMutation,
     RegistrationPageSignUpMutationVariables,
@@ -25,21 +27,25 @@ type TFormData = { passwordCheck: string } & TSignUpInput
 
 export const RegistrationPage: FC = () => {
     const methods = useForm<TFormData>()
-    const { watch } = methods
+    const {watch} = methods
     const passwordWatch = watch('password')
-    const { handleSubmit, formState: { errors } } = methods
+    const {handleSubmit, formState: {errors}} = methods
     const [searchParams] = useSearchParams()
 
-    const [mutationSignUp] = useMutation<RegistrationPageSignUpMutation>(RegistrationPageSignUpDocument, {
+    const [mutationBaseSignUp] = useMutation<RegistrationPageSignUpMutation>(RegistrationPageSignUpDocument, {
+        fetchPolicy: 'network-only',
+    })
+
+    const [mutationExternalServiceSignUp] = useMutation<RegistrationPageExternalServiceSignUpMutation>(RegistrationPageExternalServiceSignUpDocument, {
         fetchPolicy: 'network-only',
     })
 
     const onSubmit = (data: TFormData) => {
-        mutationSignUp({
+        mutationBaseSignUp({
             variables: {
                 input: {
                     email: data.email,
-                    password: data.password
+                    password: data.password,
                 },
             } as RegistrationPageSignUpMutationVariables,
         })
@@ -49,13 +55,34 @@ export const RegistrationPage: FC = () => {
                     return
                 }
                 if (response.data?.auth.baseSignUp) {
-                    const tokenData = response.data?.auth.baseSignUp
-                    const redirectUrl = new URL(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
-                    redirectUrl.searchParams.set(EUrlAuthSearchParams.accessToken, tokenData?.accessToken)
-                    redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshToken, tokenData?.refreshToken)
-                    redirectUrl.searchParams.set(EUrlAuthSearchParams.accessTokenTtl, tokenData?.accessTokenTTL)
-                    redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshTokenTtl, tokenData?.refreshTokenTTL)
-                    window.location.replace(redirectUrl)
+                    if (searchParams.get(EUrlAuthSearchParams.externalServiceRecognitionKey)) {
+                        mutationExternalServiceSignUp({
+                            variables: {
+                                input: {
+                                    recognitionKey: searchParams.get(EUrlAuthSearchParams.externalServiceRecognitionKey)
+                                }
+                            } as RegistrationPageExternalServiceSignUpMutationVariables
+                        }).then((response) => {
+                            if (response.data?.auth.externalServiceSignUp) {
+                                const tokenData = response.data?.auth.externalServiceSignUp
+                                const redirectUrl = new URL(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
+                                redirectUrl.searchParams.set(EUrlAuthSearchParams.accessToken, tokenData?.accessToken)
+                                redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshToken, tokenData?.refreshToken)
+                                redirectUrl.searchParams.set(EUrlAuthSearchParams.accessTokenTtl, tokenData?.accessTokenTTL)
+                                redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshTokenTtl, tokenData?.refreshTokenTTL)
+                                window.location.replace(redirectUrl)
+                            }
+                        })
+                    }
+                    else {
+                        const tokenData = response.data?.auth.baseSignUp
+                        const redirectUrl = new URL(decodeURI(searchParams.get(EUrlAuthSearchParams.redirectUrl)!))
+                        redirectUrl.searchParams.set(EUrlAuthSearchParams.accessToken, tokenData?.accessToken)
+                        redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshToken, tokenData?.refreshToken)
+                        redirectUrl.searchParams.set(EUrlAuthSearchParams.accessTokenTtl, tokenData?.accessTokenTTL)
+                        redirectUrl.searchParams.set(EUrlAuthSearchParams.refreshTokenTtl, tokenData?.refreshTokenTTL)
+                        window.location.replace(redirectUrl)
+                    }
                 }
             })
     }
