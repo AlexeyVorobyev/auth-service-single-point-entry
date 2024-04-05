@@ -57,6 +57,11 @@ export const RegistrationPage: FC = () => {
                 if (response.data?.auth.baseSignUp) {
                     if (searchParams.get(EUrlAuthSearchParams.externalServiceRecognitionKey)) {
                         mutationExternalServiceSignUp({
+                            context: {
+                                headers: {
+                                    authorization: `Bearer ${response.data.auth.baseSignUp.accessToken}`
+                                }
+                            },
                             variables: {
                                 input: {
                                     recognitionKey: searchParams.get(EUrlAuthSearchParams.externalServiceRecognitionKey)
